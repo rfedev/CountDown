@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--android:nextFocusUp="@id/addCounter_MainLayout"
+android:nextFocusDown="@id/addCounter_MainLayout"
+android:nextFocusLeft="@id/addCounter_MainLayout"
+android:focusable="true"
+android:focusableInTouchMode="true"-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/addCounter_MainLayout"
+    android:orientation="vertical" android:layout_width="match_parent"
+    tools:context="com.rfe_contracts.countdown.MainActivity"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/colorPrimary">
+        <!--android:layout_centerVertical="true"-->
+        <ImageView
+            android:id="@+id/addCounter_close"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_alignParentStart="true"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            app:srcCompat="@drawable/ic_close_white_24px" />
+
+        <!--The focusable lines would stop the eventName from getting focus on startup
+            They have to be placed in the element directly before the eventName element.
+            android:focusable="true"
+            android:focusableInTouchMode="true"-->
+
+        <TextView
+            android:id="@+id/addCounter_save"
+            android:layout_width="67dp"
+            android:layout_height="56dp"
+            android:gravity="center_vertical"
+            android:layout_alignParentEnd="true"
+            android:paddingEnd="16dp"
+            android:text="@string/action_save"
+            android:textAlignment="viewEnd"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:textColor="@color/textWhite"/>
+    </RelativeLayout>
+
+    <!-- The nextFocus lines would stop the above TextView getting focus again
+        android:nextFocusUp="@id/eventName"
+        android:nextFocusLeft="@id/eventName"-->
+    <EditText
+        android:id="@+id/addCounter_eventName"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:ems="10"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:hint="Enter event name"
+        android:inputType="textCapSentences"
+        android:textColorHint="@color/textWhite"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/textWhite"
+        android:imeOptions="actionDone"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/addCounter_imageClock"
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            app:srcCompat="@drawable/ic_access_time_black_24px" />
+
+        <TextView
+            android:id="@+id/addCounter_eventDate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="32dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:textColor="@color/textBlack"
+            android:hint="Event Date"
+            android:clickable="true"/>
+
+        <TextView
+            android:id="@+id/addCounter_eventTime"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textColor="@color/textBlack"
+            android:hint="Event Time"
+            android:clickable="true"/>
+
+
+    </LinearLayout>
+
+    <View style="@style/Divider"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/addCounter_imageDesc"
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            app:srcCompat="@drawable/ic_short_text_black_24px"/>
+
+        <EditText
+            android:id="@+id/addCounter_eventDesc"
+            style="@style/EditTextSingleLine"
+            android:hint="Enter event description"
+            />
+    </LinearLayout>
+
+    <View style="@style/Divider"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/addCounter_imageNote"
+            android:layout_width="24dp"
+            android:layout_height="72dp"
+            android:layout_marginStart="16dp"
+            app:srcCompat="@drawable/ic_short_text_black_24px"/>
+
+        <!--        <EditText
+                    android:id="@+id/addCounter_eventNote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:ems="10"
+                    android:hint="Event notes"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:maxLength="2000"
+                    android:maxLines="10"
+                    android:layout_marginTop="24dp"
+                    android:paddingStart="32dp"
+                    android:paddingEnd="16dp"
+                    android:textColor="@color/textBlack"
+                    android:textSize="14sp"/>-->
+
+        <EditText
+            android:id="@+id/addCounter_eventNote"
+            style="@style/EditTextMultiLine"
+            android:hint="Event notes"/>
+
+    </LinearLayout>
+</LinearLayout>
