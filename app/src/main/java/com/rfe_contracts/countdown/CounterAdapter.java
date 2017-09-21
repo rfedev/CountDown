@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.rfe_contracts.countdown.CounterAdd.CounterAddActivity;
 import com.rfe_contracts.countdown.CounterDB.CounterEntity;
 
 import java.util.Date;
@@ -20,7 +21,6 @@ import java.util.List;
 public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.CounterViewHolder> {
 
     private List<CounterEntity> allCounters;
-
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -57,8 +57,6 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.CounterV
                     view.getContext().startActivity(intent);
                 }
             });
-
-
 
         }
     }
@@ -108,5 +106,12 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.CounterV
     public int getItemCount() {
         return allCounters.size();
     }
+
+    public void addCounters(List<CounterEntity> allCounters){
+        this.allCounters = allCounters;
+        notifyDataSetChanged();
+    }
+
+
 }
 

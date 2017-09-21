@@ -1,5 +1,8 @@
 package com.rfe_contracts.countdown;
 
+import android.arch.lifecycle.LifecycleFragment;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,9 +17,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
-import com.rfe_contracts.countdown.CounterDB.CounterDb;
 import com.rfe_contracts.countdown.CounterDB.CounterEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +30,7 @@ import java.util.List;
  * Use the {@link CounterFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CounterFragment extends Fragment {
+public class CounterFragment extends LifecycleFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -42,11 +45,11 @@ public class CounterFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     //My Vars
-    private CounterDb counterDb;
-    private View view;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+//    private CounterDb counterDb;
+//    private View view;
+    private RecyclerView recyclerView;
+    private CounterAdapter recyclerViewAdapter;
+    private CounterViewModel viewModel;
 
     public CounterFragment() {
         // Required empty public constructor
@@ -91,55 +94,44 @@ public class CounterFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.view = view;
-        //Get database or create it if it doesn't already exist
-        counterDb = CounterDb.getDatabase(getActivity());
-
         //Update the fragment data
-        updateFragment();
+        //updateFragment();
+        recyclerView = (RecyclerView) view.findViewById(R.id.fragment_counter_recycler_view);
+        recyclerViewAdapter = new CounterAdapter(new ArrayList<CounterEntity>());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setHasFixedSize(true);
+
+        recyclerView.setAdapter(recyclerViewAdapter);
+
+        viewModel = ViewModelProviders.of(this).get(CounterViewModel.class);
+        viewModel.getAllCounters().observe(CounterFragment.this, new Observer<List<CounterEntity>>() {
+            @Override
+            public void onChanged(@Nullable List<CounterEntity> allCounters) {
+                recyclerViewAdapter.addCounters(allCounters);
+            }
+        });
+
+
 
         //Delete button
+        //ToDo: Implement a way to delete all using the CounterViewModel
         Button delete = (Button) view.findViewById(R.id.fragment_counter_delete);
         delete.setOnClickListener(new Button.OnClickListener(){
 
             @Override
             public void onClick(View view) {
-                counterDb.counterModel().removeAllCounters();
-                updateFragment();
+//                counterDb.counterModel().removeAllCounters();
+//                updateFragment();
+                //viewModel.deleteCounter();
             }
         });
     }
 
-    public void updateFragment(){
-        //Refresh the data in the fragment
-
-        // works (pre-java8)
-//        Thread t = new Thread() {
-//            public void run() {
-//                List<CounterEntity> allCounters = counterDb.counterModel().getAllCounters();
-//            }
-//        };
-//        t.start();
-        //Get all the counter entities
-        List<CounterEntity> allCounters = counterDb.counterModel().getAllCounters();
-        //Recycler View
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_counter_recycler_view);
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
-        // specify an adapter
-        mAdapter = new CounterAdapter(allCounters);
-        mRecyclerView.setAdapter(mAdapter);
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        updateFragment();
-    }
+//    @Override
+//    public void onResume(){
+//        super.onResume();
+//        updateFragment();
+//    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

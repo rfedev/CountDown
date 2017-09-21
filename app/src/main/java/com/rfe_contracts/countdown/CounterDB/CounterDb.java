@@ -23,7 +23,7 @@ public abstract class CounterDb extends RoomDatabase {
                             // To simplify the exercise, allow queries on the main thread.
                             // Don't do this on a real app!
                             // TODO: dont let it run on the main thread.
-                            .allowMainThreadQueries()
+//                            .allowMainThreadQueries()
                             .build();
         }
         return INSTANCE;

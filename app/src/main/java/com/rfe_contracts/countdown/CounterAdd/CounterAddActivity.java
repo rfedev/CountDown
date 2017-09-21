@@ -1,6 +1,8 @@
-package com.rfe_contracts.countdown;
+package com.rfe_contracts.countdown.CounterAdd;
 
 import android.app.FragmentTransaction;
+import android.arch.lifecycle.LifecycleActivity;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,21 +13,27 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.rfe_contracts.countdown.Constants;
 import com.rfe_contracts.countdown.CounterDB.CounterDb;
 import com.rfe_contracts.countdown.CounterDB.CounterEntity;
+import com.rfe_contracts.countdown.EventDateDialog;
+import com.rfe_contracts.countdown.EventTimeDialog;
+import com.rfe_contracts.countdown.Functions;
+import com.rfe_contracts.countdown.R;
 
 import java.util.Date;
 
 
-public class CounterAddActivity extends AppCompatActivity {
+public class CounterAddActivity extends LifecycleActivity {
 
     private long id;
-    private CounterDb counterDb;
     private EditText name;
     private TextView dateText;
     private TextView timeText;
     private EditText desc;
     private EditText note;
+
+    private CounterAddViewModel counterAddViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +46,17 @@ public class CounterAddActivity extends AppCompatActivity {
         desc = (EditText) findViewById(R.id.addCounter_eventDesc);
         note = (EditText) findViewById(R.id.addCounter_eventNote);
 
+
+        counterAddViewModel = ViewModelProviders.of(this).get(CounterAddViewModel.class);
+
         Intent intent = new Intent(getIntent());
         id = intent.getLongExtra("id",-1);
 
         //If an ID was passed, load the data from the database
         if (id != -1) {
-            counterDb = CounterDb.getDatabase(this);
-            CounterEntity counterEntity = counterDb.counterModel().getCounter(id);
+            CounterEntity counterEntity = counterAddViewModel.getCounter(id);
             name.setText(counterEntity.name);
-            dateText.setText(Functions.getStringFromDate(counterEntity.date,Constants.DATE_STRING_FORMAT));
+            dateText.setText(Functions.getStringFromDate(counterEntity.date, Constants.DATE_STRING_FORMAT));
             timeText.setText(Functions.getStringFromTime(counterEntity.date));
             desc.setText(counterEntity.desc);
             note.setText(counterEntity.note);
@@ -70,20 +80,17 @@ public class CounterAddActivity extends AppCompatActivity {
                 //Get Date (including time)
                 Date eventDate = Functions.getDateFromString(dateText.getText().toString() + " " + timeText.getText().toString(), Constants.DATE_STRING_FORMAT + " " + Constants.TIME_STRING_FORMAT);
 
-                //If an ID was passed from the intent, update the record
-                //else create a new record
-                CounterDb counterDb = CounterDb.getDatabase(getApplicationContext());
-
+                //Save new record or update if and id was passed
                 if (id == -1) {
                     //save new record
                     CounterEntity build = CounterEntity.builder().setName(name.getText().toString()).setDate(eventDate).setDesc(desc.getText().toString())
                             .setCategory("").setLocation("").setNote(note.getText().toString()).setArchive(false).build();
-                    counterDb.counterModel().addCounter(build);
+                    counterAddViewModel.addCounter(build);
                 } else {
                     //Update old record
                     CounterEntity build = CounterEntity.builder().setId(id).setName(name.getText().toString()).setDate(eventDate).setDesc(desc.getText().toString())
                             .setCategory("").setLocation("").setNote(note.getText().toString()).setArchive(false).build();
-                    counterDb.counterModel().updateCounter(build);
+                    counterAddViewModel.updateCounter(build);
                 }
                 finish();
             }

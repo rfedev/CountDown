@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.rfe_contracts.countdown.CounterAddActivity"
+        <activity android:name="com.rfe_contracts.countdown.CounterAdd.CounterAddActivity"
             android:parentActivityName="com.rfe_contracts.countdown.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateVisible">
