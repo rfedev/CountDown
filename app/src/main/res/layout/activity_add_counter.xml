@@ -22,11 +22,11 @@ android:focusableInTouchMode="true"-->
             android:id="@+id/addCounter_close"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
-            android:layout_alignParentStart="true"
             android:background="?android:attr/selectableItemBackgroundBorderless"
-            app:srcCompat="@drawable/ic_close_white_24px" />
+            android:src="@drawable/ic_close_white_24px"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true" />
 
         <!--The focusable lines would stop the eventName from getting focus on startup
             They have to be placed in the element directly before the eventName element.
@@ -73,7 +73,7 @@ android:focusableInTouchMode="true"-->
             android:layout_width="24dp"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
-            app:srcCompat="@drawable/ic_access_time_black_24px" />
+            android:src="@drawable/ic_access_time_black_24px" />
 
         <TextView
             android:id="@+id/addCounter_eventDate"
@@ -113,7 +113,7 @@ android:focusableInTouchMode="true"-->
             android:layout_width="24dp"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
-            app:srcCompat="@drawable/ic_short_text_black_24px"/>
+            android:src="@drawable/ic_short_text_black_24px"/>
 
         <EditText
             android:id="@+id/addCounter_eventDesc"
@@ -134,7 +134,7 @@ android:focusableInTouchMode="true"-->
             android:layout_width="24dp"
             android:layout_height="72dp"
             android:layout_marginStart="16dp"
-            app:srcCompat="@drawable/ic_short_text_black_24px"/>
+            android:src="@drawable/ic_short_text_black_24px"/>
 
         <!--        <EditText
                     android:id="@+id/addCounter_eventNote"
