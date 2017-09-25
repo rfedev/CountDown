@@ -1,4 +1,4 @@
-package com.rfe_contracts.countdown;
+package com.rfe_contracts.countdown.CounterAdd;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import com.rfe_contracts.countdown.Functions;
+import com.rfe_contracts.countdown.R;
 
 import java.util.Calendar;
 

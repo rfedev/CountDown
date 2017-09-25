@@ -1,4 +1,4 @@
-package com.rfe_contracts.countdown;
+package com.rfe_contracts.countdown.CounterAdd;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -6,6 +6,9 @@ import android.app.DialogFragment;
 import android.os.Bundle;
 import android.widget.DatePicker;
 import android.widget.TextView;
+
+import com.rfe_contracts.countdown.Constants;
+import com.rfe_contracts.countdown.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

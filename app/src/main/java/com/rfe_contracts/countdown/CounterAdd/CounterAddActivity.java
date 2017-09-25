@@ -5,7 +5,6 @@ import android.arch.lifecycle.LifecycleActivity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -14,10 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rfe_contracts.countdown.Constants;
-import com.rfe_contracts.countdown.CounterDB.CounterDb;
 import com.rfe_contracts.countdown.CounterDB.CounterEntity;
-import com.rfe_contracts.countdown.EventDateDialog;
-import com.rfe_contracts.countdown.EventTimeDialog;
 import com.rfe_contracts.countdown.Functions;
 import com.rfe_contracts.countdown.R;
 

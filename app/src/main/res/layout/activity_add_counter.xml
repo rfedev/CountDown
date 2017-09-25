@@ -37,11 +37,10 @@ android:focusableInTouchMode="true"-->
             android:id="@+id/addCounter_save"
             android:layout_width="67dp"
             android:layout_height="56dp"
-            android:gravity="center_vertical"
             android:layout_alignParentEnd="true"
             android:paddingEnd="16dp"
             android:text="@string/action_save"
-            android:textAlignment="viewEnd"
+            android:gravity="center_vertical|end"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:textColor="@color/textWhite"/>
     </RelativeLayout>
