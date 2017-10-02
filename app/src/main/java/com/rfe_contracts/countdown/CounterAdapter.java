@@ -61,7 +61,7 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.CounterV
             // TODO: 02/10/2017 this is just a temporary implementation for longClickListener.
             //Will show the desc and note views if longclicked
             view.setOnLongClickListener(new View.OnLongClickListener() {
-//                boolean visible;
+                boolean visible; //default is false
                 @Override
                 public boolean onLongClick(View view) {
 
@@ -75,11 +75,10 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.CounterV
                         desc.setVisibility(View.GONE);
                         note.setVisibility(View.GONE);
                     }
-
-//                    visible = !visible;
-//                    desc.setVisibility(visible ? View.GONE : View.VISIBLE);
-//                    note.setVisibility(visible ? View.GONE : View.VISIBLE);
-
+                    
+                    desc.setVisibility(visible ? View.GONE : View.VISIBLE);
+                    note.setVisibility(visible ? View.GONE : View.VISIBLE);
+                    visible = !visible;
 
                     //true if the callback consumed the long click, false otherwise.
                     //ie. if we return false it would then go on to activate the normal onClick
@@ -130,12 +129,9 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.CounterV
 
         //View.INVISIBLE hides the view but keeps the space for it.
         //View.GONE removes it from the layout.
-        if (counterViewHolder.desc.getText().toString().trim().equals("")) {
-            counterViewHolder.desc.setVisibility(View.GONE);
-        }
-        if (counterViewHolder.note.getText().toString().trim().equals("")){
-            counterViewHolder.note.setVisibility(View.GONE);
-        }
+        counterViewHolder.desc.setVisibility(View.GONE);
+        counterViewHolder.note.setVisibility(View.GONE);
+
 
     }
 
