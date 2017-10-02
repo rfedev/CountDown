@@ -13,6 +13,10 @@ import java.util.List;
 /**
  * The ViewModel class is designed to store and manage UI-related data so that the data survives configuration changes such as screen rotations.
  * Takes some of the work away from the activity/fragment
+ *
+ * This viewmodel is handling the tasks for the counter database.
+ * As getAllCounters is LiveData, the Room database is responsible for providing the data.
+ * The deleteCounter is not observable and therefore needs to be run via an AsyncTask
  */
 
 public class CounterViewModel extends AndroidViewModel {

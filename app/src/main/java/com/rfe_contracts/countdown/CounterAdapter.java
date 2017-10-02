@@ -58,6 +58,36 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.CounterV
                 }
             });
 
+            // TODO: 02/10/2017 this is just a temporary implementation for longClickListener.
+            //Will show the desc and note views if longclicked
+            view.setOnLongClickListener(new View.OnLongClickListener() {
+//                boolean visible;
+                @Override
+                public boolean onLongClick(View view) {
+
+                    //TransitionManager.beginDelayedTransition(cardView);
+
+                    if (desc.getVisibility() == View.GONE || note.getVisibility() == View.GONE) {
+                        desc.setVisibility(View.VISIBLE);
+                        note.setVisibility(View.VISIBLE);
+
+                    } else {
+                        desc.setVisibility(View.GONE);
+                        note.setVisibility(View.GONE);
+                    }
+
+//                    visible = !visible;
+//                    desc.setVisibility(visible ? View.GONE : View.VISIBLE);
+//                    note.setVisibility(visible ? View.GONE : View.VISIBLE);
+
+
+                    //true if the callback consumed the long click, false otherwise.
+                    //ie. if we return false it would then go on to activate the normal onClick
+                    //listener if one is implemented (which it is)
+                    return true;
+                }
+            });
+
         }
     }
 
@@ -92,13 +122,21 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.CounterV
         counterViewHolder.id = allCounters.get(i).id;
 
         counterViewHolder.name.setText(allCounters.get(i).name);
-        Date date = allCounters.get(i).date;
-        String string = (String) Functions.getStringFromDate(allCounters.get(i).date,"dd/MM/YYYY");
+        String string = Functions.getStringFromDate(allCounters.get(i).date,"dd/MM/YYYY");
         counterViewHolder.date.setText(string);
-//        counterViewHolder.date.setText(Functions.getStringFromDate(allCounters.get(i).date,"dd/MM/YYYY"));
-        counterViewHolder.desc.setText(allCounters.get(i).desc);
         counterViewHolder.counter.setText(Functions.getCounterString(allCounters.get(i).date,true,6));
+        counterViewHolder.desc.setText(allCounters.get(i).desc);
         counterViewHolder.note.setText(allCounters.get(i).note);
+
+        //View.INVISIBLE hides the view but keeps the space for it.
+        //View.GONE removes it from the layout.
+        if (counterViewHolder.desc.getText().toString().trim().equals("")) {
+            counterViewHolder.desc.setVisibility(View.GONE);
+        }
+        if (counterViewHolder.note.getText().toString().trim().equals("")){
+            counterViewHolder.note.setVisibility(View.GONE);
+        }
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)

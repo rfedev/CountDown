@@ -94,8 +94,6 @@ public class CounterFragment extends LifecycleFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //Update the fragment data
-        //updateFragment();
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_counter_recycler_view);
         recyclerViewAdapter = new CounterAdapter(new ArrayList<CounterEntity>());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -103,6 +101,7 @@ public class CounterFragment extends LifecycleFragment {
 
         recyclerView.setAdapter(recyclerViewAdapter);
 
+        //The viewmodel will be created and added to the provider if it doesn't exist.
         viewModel = ViewModelProviders.of(this).get(CounterViewModel.class);
         viewModel.getAllCounters().observe(CounterFragment.this, new Observer<List<CounterEntity>>() {
             @Override
