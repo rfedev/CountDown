@@ -16,7 +16,7 @@ public interface CounterDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addCounter(CounterEntity counter);
 
-    @Query("select * from Counters")
+    @Query("select * from Counters order by date")
     public LiveData<List<CounterEntity>> getAllCounters();
 
     @Query("select * from Counters where id = :id")

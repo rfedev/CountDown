@@ -75,7 +75,7 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.CounterV
                         desc.setVisibility(View.GONE);
                         note.setVisibility(View.GONE);
                     }
-                    
+
                     desc.setVisibility(visible ? View.GONE : View.VISIBLE);
                     note.setVisibility(visible ? View.GONE : View.VISIBLE);
                     visible = !visible;
