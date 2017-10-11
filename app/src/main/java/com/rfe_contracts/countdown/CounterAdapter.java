@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.rfe_contracts.countdown.CounterAdd.CounterAddActivity;
 import com.rfe_contracts.countdown.CounterDB.CounterEntity;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,7 +19,7 @@ import java.util.List;
 
 public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.CounterViewHolder> {
 
-    private List<CounterEntity> allCounters;
+    private List<CounterEntity> counters;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -92,8 +91,8 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.CounterV
 
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public CounterAdapter(List<CounterEntity> allCounters) {
-        this.allCounters = allCounters;
+    public CounterAdapter(List<CounterEntity> counters) {
+        this.counters = counters;
     }
 
 
@@ -118,14 +117,14 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.CounterV
     @Override
     public void onBindViewHolder(CounterViewHolder counterViewHolder, int i) {
 
-        counterViewHolder.id = allCounters.get(i).id;
+        counterViewHolder.id = counters.get(i).id;
 
-        counterViewHolder.name.setText(allCounters.get(i).name);
-        String string = Functions.getStringFromDate(allCounters.get(i).date,"dd/MM/YYYY");
+        counterViewHolder.name.setText(counters.get(i).name);
+        String string = Functions.getStringFromDate(counters.get(i).date,"dd/MM/YYYY");
         counterViewHolder.date.setText(string);
-        counterViewHolder.counter.setText(Functions.getCounterString(allCounters.get(i).date,true,6));
-        counterViewHolder.desc.setText(allCounters.get(i).desc);
-        counterViewHolder.note.setText(allCounters.get(i).note);
+        counterViewHolder.counter.setText(Functions.getCounterString(counters.get(i).date,true,6));
+        counterViewHolder.desc.setText(counters.get(i).desc);
+        counterViewHolder.note.setText(counters.get(i).note);
 
         //View.INVISIBLE hides the view but keeps the space for it.
         //View.GONE removes it from the layout.
@@ -138,11 +137,11 @@ public class CounterAdapter extends RecyclerView.Adapter<CounterAdapter.CounterV
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return allCounters.size();
+        return counters.size();
     }
 
-    public void addCounters(List<CounterEntity> allCounters){
-        this.allCounters = allCounters;
+    public void addCounters(List<CounterEntity> counters){
+        this.counters = counters;
         notifyDataSetChanged();
     }
 

@@ -49,6 +49,8 @@ public class CounterFragment extends LifecycleFragment {
 //    private View view;
     private RecyclerView recyclerView;
     private CounterAdapter recyclerViewAdapter;
+    private RecyclerView recyclerView2;
+    private CounterAdapter recyclerViewAdapter2;
     private CounterViewModel viewModel;
 
     public CounterFragment() {
@@ -94,43 +96,61 @@ public class CounterFragment extends LifecycleFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //Setup the viewmodel for this fragment
+        //The viewmodel will be created and added to the provider if it doesn't exist.
+        viewModel = ViewModelProviders.of(this).get(CounterViewModel.class);
+
+        //Future Counters
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_counter_recycler_view);
         recyclerViewAdapter = new CounterAdapter(new ArrayList<CounterEntity>());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
-
         recyclerView.setAdapter(recyclerViewAdapter);
 
-        //The viewmodel will be created and added to the provider if it doesn't exist.
-        viewModel = ViewModelProviders.of(this).get(CounterViewModel.class);
-        viewModel.getAllCounters().observe(CounterFragment.this, new Observer<List<CounterEntity>>() {
+//        viewModel.getAllCounters().observe(CounterFragment.this, new Observer<List<CounterEntity>>() {
+//            @Override
+//            public void onChanged(@Nullable List<CounterEntity> counters) {
+//                recyclerViewAdapter.addCounters(counters);
+//            }
+//        });
+
+        viewModel.getCountersFuture().observe(CounterFragment.this, new Observer<List<CounterEntity>>() {
             @Override
-            public void onChanged(@Nullable List<CounterEntity> allCounters) {
-                recyclerViewAdapter.addCounters(allCounters);
+            public void onChanged(@Nullable List<CounterEntity> counters) {
+                recyclerViewAdapter.addCounters(counters);
             }
         });
 
+
+        //Past Counters
+        recyclerView2 = (RecyclerView) view.findViewById(R.id.fragment_counter_recycler_view2);
+        recyclerViewAdapter2 = new CounterAdapter(new ArrayList<CounterEntity>());
+        recyclerView2.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView2.setHasFixedSize(true);
+
+        recyclerView2.setAdapter(recyclerViewAdapter2);
+
+        viewModel.getCountersPast().observe(CounterFragment.this, new Observer<List<CounterEntity>>() {
+            @Override
+            public void onChanged(@Nullable List<CounterEntity> counters) {
+                recyclerViewAdapter2.addCounters(counters);
+            }
+        });
 
 
         //Delete button
         //ToDo: Implement a way to delete all using the CounterViewModel
-        Button delete = (Button) view.findViewById(R.id.fragment_counter_delete);
-        delete.setOnClickListener(new Button.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-//                counterDb.counterModel().removeAllCounters();
-//                updateFragment();
-                //viewModel.deleteCounter();
-            }
-        });
+//        Button delete = (Button) view.findViewById(R.id.fragment_counter_delete);
+//        delete.setOnClickListener(new Button.OnClickListener(){
+//
+//            @Override
+//            public void onClick(View view) {
+////                counterDb.counterModel().removeAllCounters();
+////                updateFragment();
+//                //viewModel.deleteCounter();
+//            }
+//        });
     }
-
-//    @Override
-//    public void onResume(){
-//        super.onResume();
-//        updateFragment();
-//    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

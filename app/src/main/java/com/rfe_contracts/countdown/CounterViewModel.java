@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import com.rfe_contracts.countdown.CounterDB.CounterDb;
 import com.rfe_contracts.countdown.CounterDB.CounterEntity;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,6 +24,8 @@ import java.util.List;
 public class CounterViewModel extends AndroidViewModel {
 
     private final LiveData<List<CounterEntity>> allCounters;
+    private final LiveData<List<CounterEntity>> countersPast;
+    private final LiveData<List<CounterEntity>> countersFuture;
 
     private CounterDb counterDb;
 
@@ -30,11 +34,24 @@ public class CounterViewModel extends AndroidViewModel {
 
         counterDb = CounterDb.getDatabase(application);
         allCounters = counterDb.counterModel().getAllCounters();
+
+        Date date = Calendar.getInstance().getTime();
+        countersPast = counterDb.counterModel().getCountersBeforeDate(date);
+        countersFuture = counterDb.counterModel().getCountersAfterDate(date);
     }
 
     public LiveData<List<CounterEntity>> getAllCounters(){
         return this.allCounters;
     }
+
+    public LiveData<List<CounterEntity>> getCountersPast(){
+        return this.countersPast;
+    }
+
+    public LiveData<List<CounterEntity>> getCountersFuture(){
+        return this.countersFuture;
+    }
+
 
     public void deleteCounter(CounterEntity counterEntity){
         new DeleteCounterAsyncTask(counterDb).execute(counterEntity);

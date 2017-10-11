@@ -26,13 +26,14 @@ public class MainActivity extends AppCompatActivity
 
 
     Fragment currentFragment;
+    Toolbar toolbar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         //Fragments (if savedInstanceState used to stop the fragment reloading if the device is rotated)
@@ -124,8 +125,10 @@ public class MainActivity extends AppCompatActivity
         Class fragmentClass = null;
         if (id == R.id.nav_home) {
             fragmentClass = HomeFragment.class;
+            toolbar.setTitle("AppName");
         } else if (id == R.id.nav_counter) {
             fragmentClass = CounterFragment.class;
+            toolbar.setTitle("Counter");
         }
         try {
             currentFragment = (Fragment) fragmentClass.newInstance();

@@ -8,6 +8,7 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.TypeConverters;
 import android.arch.persistence.room.Update;
 
+import java.util.Date;
 import java.util.List;
 
 @Dao
@@ -18,6 +19,12 @@ public interface CounterDao {
 
     @Query("select * from Counters order by date")
     public LiveData<List<CounterEntity>> getAllCounters();
+
+    @Query("select * from Counters where date < :date order by date desc")
+    public LiveData<List<CounterEntity>> getCountersBeforeDate(Date date);
+
+    @Query("select * from Counters where date >= :date order by date")
+    public LiveData<List<CounterEntity>> getCountersAfterDate(Date date);
 
     @Query("select * from Counters where id = :id")
     public CounterEntity getCounter(Long id);

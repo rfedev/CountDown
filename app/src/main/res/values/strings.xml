@@ -1,12 +1,22 @@
 <resources>
     <string name="app_name">AppName</string>
 
-    <string name="action_save">SAVE</string>
+
     <string name="action_name_counter">Counter</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+
+    <!--Counter Activity-->
+    <string name="future_events">Future Events</string>
+    <string name="past_events">Past Events</string>
+
+    <!--Counter Add Activity-->
+    <string name="action_save">SAVE</string>
+
+
+    <!--Settings-->
     <string name="action_settings">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->
